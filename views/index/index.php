@@ -2,7 +2,7 @@
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Html;
-use yii\helpers\URL;
+
 /* @var $this yii\web\View */
 $this->title = 'Задачи';
 ?>

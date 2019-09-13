@@ -40,26 +40,19 @@ class m190913_090620_table_tasks extends Migration
             'status_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0',
             'name' => Schema::TYPE_TEXT . ' NOT NULL',
             'priority' => 'ENUM("0", "1", "2") NOT NULL DEFAULT "0"',
+            'uuid' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
         // Create tags table
         $this->createTable($this->table_tag, [
             'id' => Schema::TYPE_PK,
             'tag_name' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
-
-
-
-
         // Create tags_tasks table
         $this->createTable($this->table_tag_task, [
             'id' => Schema::TYPE_PK,
             'task_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0',
             'tag_id' => Schema::TYPE_INTEGER . '(11) NOT NULL DEFAULT 0',
         ]);
-
-
-
-
         // Create foreign key for tags table
         $this->addForeignKey(
             'fbx_task_tag_id',
@@ -69,7 +62,6 @@ class m190913_090620_table_tasks extends Migration
             'id',
             'CASCADE'
         );
-
         // Create foreign key for tags table
         $this->addForeignKey(
             'fbx_tag_task_id',
@@ -79,10 +71,6 @@ class m190913_090620_table_tasks extends Migration
             'id',
             'CASCADE'
         );
-
-
-
-
         // Create foreign key for tasks table
         $this->addForeignKey(
             'fbx_status_id',
@@ -99,10 +87,10 @@ class m190913_090620_table_tasks extends Migration
      */
     public function down()
     {
+        $this->dropTable($this->table_tag_task);
         $this->dropTable($this->table_tag);
         $this->dropTable($this->table_task);
         $this->dropTable($this->table_status);
-        $this->dropTable($this->table_tag_task);
     }
 
 }
