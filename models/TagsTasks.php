@@ -5,22 +5,23 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tag".
+ * This is the model class for table "tags_tasks".
  *
  * @property int $id
  * @property int $task_id
- * @property string $tag_name
+ * @property int $tag_id
  *
+ * @property Tags $tag
  * @property Tasks $task
  */
-class Tag extends \yii\db\ActiveRecord
+class TagsTasks extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tag';
+        return 'tags_tasks';
     }
 
     /**
@@ -29,9 +30,8 @@ class Tag extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['task_id'], 'integer'],
-            [['tag_name'], 'required'],
-            [['tag_name'], 'string', 'max' => 255],
+            [['task_id', 'tag_id'], 'integer'],
+            [['tag_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tags::className(), 'targetAttribute' => ['tag_id' => 'id']],
             [['task_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tasks::className(), 'targetAttribute' => ['task_id' => 'id']],
         ];
     }
@@ -44,8 +44,16 @@ class Tag extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'task_id' => 'Task ID',
-            'tag_name' => 'Tag Name',
+            'tag_id' => 'Tag ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTag()
+    {
+        return $this->hasOne(Tags::className(), ['id' => 'tag_id']);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Tasks;
 use Yii;
 use yii\web\Controller;
 
@@ -14,9 +15,21 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Tasks();
+        return $this->render('index', [
+            'dataProvider' => $model->search (Yii::$app->request->get()),
+            'searchModel' => $model,
+        ]);
     }
-
+    /**
+     * Displays status page.
+     *
+     * @return string
+     */
+    public function actionStatus()
+    {
+        return $this->render('status');
+    }
 
 
 }

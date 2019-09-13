@@ -1,5 +1,4 @@
 <?php
 return [
-    'login' => 'auth/login',
-
+    'status' => 'index/status',
 ];

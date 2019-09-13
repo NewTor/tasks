@@ -17,13 +17,13 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'E07NQ5IOilIJIVC2nwDrrIdBT3ruCI_a',
         ],
-        /*'urlManager' => [
+        'urlManager' => [
             'class' => 'yii\web\UrlManager',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => require(__DIR__ . '/router.php'),
-        ],*/
+        ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],

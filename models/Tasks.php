@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\data\ActiveDataProvider;
 use Yii;
 
 /**
@@ -12,7 +13,7 @@ use Yii;
  * @property string $name
  * @property string $priority
  *
- * @property Tag[] $tags
+ * @property TagsTasks[] $tagsTasks
  * @property Status $status
  */
 class Tasks extends \yii\db\ActiveRecord
@@ -24,7 +25,6 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return 'tasks';
     }
-
     /**
      * {@inheritdoc}
      */
@@ -37,7 +37,6 @@ class Tasks extends \yii\db\ActiveRecord
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -50,20 +49,45 @@ class Tasks extends \yii\db\ActiveRecord
             'priority' => 'Priority',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTags()
+    public function getTagsTasks()
     {
-        return $this->hasMany(Tag::className(), ['task_id' => 'id']);
+        return $this->hasMany(TagsTasks::className(), ['task_id' => 'id']);
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getStatus()
     {
         return $this->hasOne(Status::className(), ['id' => 'status_id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('tags_tasks', ['task_id' => 'id']);
+    }
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = Tasks::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'attributes' => ['id', 'status_id', 'name', 'tags', 'priority'],
+            ],
+            'pagination' => [
+                'pageSize' => 40,
+            ],
+        ]);
+        $this->load($params);
+
+        return $dataProvider;
     }
 }
