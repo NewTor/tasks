@@ -11,10 +11,18 @@ $this->title = 'Задачи';
 ?>
 <div class="site-index">
     <div class="body-content">
-        <h2><?= $this->title;?></h2>
+        <div id="modal-task"></div>
+        <div class="row">
+            <div class="col-md-10">
+                <h2><?= $this->title;?></h2>
+            </div>
+            <div class="col-md-2 block__top-padding">
+                <button type="button" class="btn btn-primary btn-xs" onclick="modal();">Новая задача</button>
+            </div>
+        </div>
 
 
-        <div class="panel panel-success">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 <div id="filter-btn" style="cursor: pointer;"><strong>Фильтр</strong> <span class="caret"></span></div>
             </div>
@@ -27,15 +35,10 @@ $this->title = 'Задачи';
 
 
                 <div style="clear: both;"></div>
-                <button type="submit" class="btn btn-success btn-xs">Применить</button>
-                <button type="reset" onclick="location.href='/index'" class="btn btn-success btn-xs">Сброс</button>
+                <button type="submit" class="btn btn-primary btn-xs">Применить</button>
+                <button type="reset" onclick="location.href='/index'" class="btn btn-primary btn-xs">Сброс</button>
             </div>
         </div>
-
-
-
-
-
         <?php
         echo GridView::widget([
             'dataProvider' => $dataProvider,

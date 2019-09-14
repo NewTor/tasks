@@ -34,6 +34,13 @@ class m190913_090620_table_tasks extends Migration
             'id' => Schema::TYPE_PK,
             'status_name' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
+        //Insert statuses
+        $this->batchInsert(
+            $this->table_status, ['status_name'], [
+            ['Новая'],
+            ['В работе'],
+            ['Завершена'],
+        ]);
         // Create tasks table
         $this->createTable($this->table_task, [
             'id' => Schema::TYPE_PK,

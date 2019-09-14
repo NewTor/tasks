@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "status".
@@ -15,14 +16,14 @@ use Yii;
 class Status extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public static function tableName()
     {
         return 'status';
     }
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function rules()
     {
@@ -32,7 +33,7 @@ class Status extends \yii\db\ActiveRecord
         ];
     }
     /**
-     * {@inheritdoc}
+     * @return array
      */
     public function attributeLabels()
     {
@@ -59,6 +60,22 @@ class Status extends \yii\db\ActiveRecord
             $result[$status->id] = $status->status_name;
         }
         return  $result;
+    }
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = Status::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['elements_per_page']['statuses'],
+            ],
+        ]);
+        $this->load($params);
+        return $dataProvider;
     }
 
 }

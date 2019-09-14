@@ -25,7 +25,9 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'js/jquery-ui.js',
-        'js/action.js'
+        'js/options.js',
+        'js/action.js',
+        'js/common.js'
     ];
     public $jsOptions = [
         'position' => \yii\web\View::POS_HEAD,

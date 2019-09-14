@@ -31,7 +31,12 @@ class IndexController extends Controller
      */
     public function actionStatus()
     {
-        return $this->render('status');
+        $model = new Status();
+        return $this->render('status', [
+            'dataProvider' => $model->search (Yii::$app->request->get()),
+            'searchModel' => $model,
+            'statuses' => Status::getAsArray(),
+        ]);
     }
     /**
      * Displays status page.
