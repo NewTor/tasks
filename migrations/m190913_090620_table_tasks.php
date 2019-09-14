@@ -29,6 +29,23 @@ class m190913_090620_table_tasks extends Migration
      */
     public function up()
     {
+        // Create function uuid_v4
+        $sql = "DROP FUNCTION IF EXISTS `uuid_v4` ;
+                DELIMITER $$
+                CREATE DEFINER=`root`@`%` FUNCTION `uuid_v4` () RETURNS CHAR(36) CHARSET utf8 BEGIN
+                SET @h1 = LPAD(HEX(FLOOR(RAND() * 0xffff)), 4, '0');
+                SET @h2 = LPAD(HEX(FLOOR(RAND() * 0xffff)), 4, '0');
+                SET @h3 = LPAD(HEX(FLOOR(RAND() * 0xffff)), 4, '0');
+                SET @h6 = LPAD(HEX(FLOOR(RAND() * 0xffff)), 4, '0');
+                SET @h7 = LPAD(HEX(FLOOR(RAND() * 0xffff)), 4, '0');
+                SET @h8 = LPAD(HEX(FLOOR(RAND() * 0xffff)), 4, '0');
+                SET @h4 = CONCAT('4', LPAD(HEX(FLOOR(RAND() * 0x0fff)), 3, '0'));
+                SET @h5 = CONCAT(HEX(FLOOR(RAND() * 4 + 8)),
+                LPAD(HEX(FLOOR(RAND() * 0x0fff)), 3, '0'));
+                RETURN LOWER(CONCAT(@h1, @h2, '-', @h3, '-', @h4, '-', @h5, '-', @h6, @h7, @h8));
+                END$$
+                DELIMITER ;";
+        $this->execute($sql);
         // Create statuses table
         $this->createTable($this->table_status, [
             'id' => Schema::TYPE_PK,
@@ -94,6 +111,8 @@ class m190913_090620_table_tasks extends Migration
      */
     public function down()
     {
+        $sql = "DROP FUNCTION IF EXISTS `uuid_v4`;";
+        $this->execute($sql);
         $this->dropTable($this->table_tag_task);
         $this->dropTable($this->table_tag);
         $this->dropTable($this->table_task);
