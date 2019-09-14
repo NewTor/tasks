@@ -14,7 +14,15 @@
         });
 };*/
 
-
+$(function() {
+    $('#filter-btn').on('click', function() {
+        $('#filter-block').slideToggle({
+            'complete': function() {
+                $('#status_id').trigger('chosen:updated');
+            }
+        });
+    });
+});
 
 
 

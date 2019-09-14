@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Status;
+use app\models\Tags;
 use app\models\Tasks;
 use Yii;
 use yii\web\Controller;
@@ -19,6 +21,7 @@ class IndexController extends Controller
         return $this->render('index', [
             'dataProvider' => $model->search (Yii::$app->request->get()),
             'searchModel' => $model,
+            'statuses' => Status::getAsArray(),
         ]);
     }
     /**
@@ -29,6 +32,15 @@ class IndexController extends Controller
     public function actionStatus()
     {
         return $this->render('status');
+    }
+    /**
+     * Displays status page.
+     *
+     * @return string
+     */
+    public function actionTags()
+    {
+        return $this->render('tags');
     }
 
 

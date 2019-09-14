@@ -36,6 +36,7 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Главная', 'url' => ['/index']],
             ['label' => 'Статусы', 'url' => ['/status']],
+            ['label' => 'Хэштеги', 'url' => ['/tags']],
         ],
     ]);
     NavBar::end();

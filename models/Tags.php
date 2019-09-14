@@ -21,7 +21,6 @@ class Tags extends \yii\db\ActiveRecord
     {
         return 'tags';
     }
-
     /**
      * {@inheritdoc}
      */
@@ -32,7 +31,6 @@ class Tags extends \yii\db\ActiveRecord
             [['tag_name'], 'string', 'max' => 255],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -43,7 +41,6 @@ class Tags extends \yii\db\ActiveRecord
             'tag_name' => 'Tag Name',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -51,4 +48,21 @@ class Tags extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TagsTasks::className(), ['tag_id' => 'id']);
     }
+    /**
+     * @return array
+     */
+    public static function getAsArray()
+    {
+        $result = [];
+        $tags = Tags::find()->all();
+        foreach ($tags as $tag) {
+            $result[$tag->id] = $tag->tag_name;
+        }
+        return  $result;
+    }
+
+
+
+
+
 }

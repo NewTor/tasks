@@ -21,7 +21,6 @@ class Status extends \yii\db\ActiveRecord
     {
         return 'status';
     }
-
     /**
      * {@inheritdoc}
      */
@@ -32,7 +31,6 @@ class Status extends \yii\db\ActiveRecord
             [['status_name'], 'string', 'max' => 255],
         ];
     }
-
     /**
      * {@inheritdoc}
      */
@@ -43,7 +41,6 @@ class Status extends \yii\db\ActiveRecord
             'status_name' => 'Status Name',
         ];
     }
-
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -51,4 +48,17 @@ class Status extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tasks::className(), ['status_id' => 'id']);
     }
+    /**
+     * @return array
+     */
+    public static function getAsArray()
+    {
+        $result = [];
+        $statuses = Status::find()->all();
+        foreach ($statuses as $status) {
+            $result[$status->id] = $status->status_name;
+        }
+        return  $result;
+    }
+
 }
