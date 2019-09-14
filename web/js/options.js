@@ -1,21 +1,18 @@
 "use strict";
 var spApplication = spApplication || {};
-/**
- *
- */
 spApplication.options = {};
 /**
- *
+ * Установки модального окна задачи
  */
 spApplication.options.task = {
-    element: "#modal",
+    element: "#modal-task",
     height: 350,
     width: 590,
     title: "Редактирование задачи",
     server_addr: "edit-task"
 };
 /**
- *
+ * Установки модального окна статуса
  */
 spApplication.options.status = {
     element: "#modal-status",
@@ -25,7 +22,7 @@ spApplication.options.status = {
     server_addr: "edit-status"
 };
 /**
- *
+ * Установки модального окна тега
  */
 spApplication.options.tags = {
     element: "#modal-tags",

@@ -39,7 +39,7 @@ class IndexController extends Controller
         ]);
     }
     /**
-     * Displays status page.
+     * Displays tags page.
      *
      * @return string
      */
@@ -51,7 +51,6 @@ class IndexController extends Controller
             'searchModel' => $model,
             'statuses' => Status::getAsArray(),
         ]);
-        return $this->render('tags');
     }
 
 

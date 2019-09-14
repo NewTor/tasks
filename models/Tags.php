@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\data\ActiveDataProvider;
+use yii\grid\GridView;
 
 /**
  * This is the model class for table "tags".
@@ -16,14 +17,16 @@ use yii\data\ActiveDataProvider;
 class Tags extends \yii\db\ActiveRecord
 {
     /**
-     * {@inheritdoc}
+     * Table name
+     * @return string
      */
     public static function tableName()
     {
         return 'tags';
     }
     /**
-     * {@inheritdoc}
+     * Validate rules
+     * @return array
      */
     public function rules()
     {
@@ -33,7 +36,8 @@ class Tags extends \yii\db\ActiveRecord
         ];
     }
     /**
-     * {@inheritdoc}
+     * Fields attributes
+     * @return array
      */
     public function attributeLabels()
     {
@@ -43,6 +47,7 @@ class Tags extends \yii\db\ActiveRecord
         ];
     }
     /**
+     * TagsTasks relation
      * @return \yii\db\ActiveQuery
      */
     public function getTagsTasks()
@@ -50,6 +55,7 @@ class Tags extends \yii\db\ActiveRecord
         return $this->hasMany(TagsTasks::className(), ['tag_id' => 'id']);
     }
     /**
+     * Массив записей таблицы Tags
      * @return array
      */
     public static function getAsArray()
@@ -62,6 +68,7 @@ class Tags extends \yii\db\ActiveRecord
         return  $result;
     }
     /**
+     * DataProvider для GridView
      * @param array $params
      * @return ActiveDataProvider
      */

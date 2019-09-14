@@ -16,6 +16,7 @@ use yii\data\ActiveDataProvider;
 class Status extends \yii\db\ActiveRecord
 {
     /**
+     * Table name
      * @return string
      */
     public static function tableName()
@@ -23,6 +24,7 @@ class Status extends \yii\db\ActiveRecord
         return 'status';
     }
     /**
+     * Validate rules
      * @return array
      */
     public function rules()
@@ -33,6 +35,7 @@ class Status extends \yii\db\ActiveRecord
         ];
     }
     /**
+     * Fields attributes
      * @return array
      */
     public function attributeLabels()
@@ -43,6 +46,7 @@ class Status extends \yii\db\ActiveRecord
         ];
     }
     /**
+     * Tasks relation
      * @return \yii\db\ActiveQuery
      */
     public function getTasks()
@@ -50,6 +54,7 @@ class Status extends \yii\db\ActiveRecord
         return $this->hasMany(Tasks::className(), ['status_id' => 'id']);
     }
     /**
+     * Массив записей таблицы Status
      * @return array
      */
     public static function getAsArray()
@@ -62,6 +67,7 @@ class Status extends \yii\db\ActiveRecord
         return  $result;
     }
     /**
+     * DataProvider для GridView
      * @param array $params
      * @return ActiveDataProvider
      */

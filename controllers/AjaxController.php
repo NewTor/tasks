@@ -12,6 +12,8 @@ use yii\web\Controller;
 class AjaxController extends Controller
 {
     /**
+     * Модальное окно редактирования статуса
+     *
      * @return string
      */
     public function actionEditStatus()
@@ -28,6 +30,8 @@ class AjaxController extends Controller
         ]);
     }
     /**
+     * Экшн сохранения данных статуса
+     *
      * @return string
      */
     public function actionEditStatusSave()
@@ -60,6 +64,8 @@ class AjaxController extends Controller
         }
     }
     /**
+     * Экшн удаления статуса
+     *
      * @return string
      */
     public function actionDeleteStatus()
@@ -87,6 +93,8 @@ class AjaxController extends Controller
         }
     }
     /**
+     * Модальное окно редактирования тега
+     *
      * @return string
      */
     public function actionEditTag()
@@ -103,6 +111,8 @@ class AjaxController extends Controller
         ]);
     }
     /**
+     * Экшн сохранения данных тега
+     *
      * @return string
      */
     public function actionEditTagSave()
@@ -135,6 +145,8 @@ class AjaxController extends Controller
         }
     }
     /**
+     * Экшн удаления тега
+     *
      * @return string
      */
     public function actionDeleteTag()

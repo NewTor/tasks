@@ -8,4 +8,3 @@ use yii\helpers\Html;
         <?= Html::textInput('status_name', $status ? $status->status_name : '', ['class' => 'form-control', 'id' => 'status_name']);?>
     </div>
 </div>
-

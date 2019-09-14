@@ -1,13 +1,15 @@
 "use strict";
 var spApplication = spApplication || {};
 /**
- *
- *
+ * Функции событий
  */
 spApplication.Controller = {
     /**
+     * Модальное окно
      *
-     *
+     * @param options установки окна
+     * @param id идентификатор сущности
+     * @param callback возвратная функция
      */
     modal: function (options, id, callback) {
         $(options.element).load("ajax/" + options.server_addr + "?id=" + id)
@@ -47,8 +49,11 @@ spApplication.Controller = {
             });
     },
     /**
+     * Удаление записи
      *
-     *
+     * @param id идентификатор сущности
+     * @param destination сущность
+     * @param callback возвратная функция
      */
     deleteRow: function(id, destination, callback) {
         if(id != 0) {
@@ -66,8 +71,7 @@ spApplication.Controller = {
         }
     },
     /**
-     *
-     *
+     * Переключение панели фильтра
      */
     toggleFilter: function () {
         $("#filter-block").slideToggle({
@@ -77,16 +81,14 @@ spApplication.Controller = {
         });
     },
     /**
-     *
-     *
+     * Pjax загрузчик таблицы статусов
      */
     loadStatusGrid: function () {
         jQuery.pjax.defaults.timeout = 5000;
         jQuery.pjax.reload({container: "#status-pjax"});
     },
     /**
-     *
-     *
+     * Pjax загрузчик таблицы тегов
      */
     loadTagsGrid: function () {
         jQuery.pjax.defaults.timeout = 5000;
@@ -94,13 +96,12 @@ spApplication.Controller = {
     }
 };
 /**
- *
- *
+ * Вызовы функций
  */
 spApplication.Action = {
     /**
-     *
-     *
+     * Сохранение статуса
+     * @param id идентификатор статуса
      */
     editStatus: function (id) {
         id = isNaN(id) ? 0 : id;
@@ -114,8 +115,8 @@ spApplication.Action = {
 
     },
     /**
-     *
-     *
+     * Удаление статуса
+     * @param id идентификатор статуса
      */
     deleteStatus: function (id) {
         id = isNaN(id) ? 0 : id;
@@ -128,8 +129,8 @@ spApplication.Action = {
         });
     },
     /**
-     *
-     *
+     * Сохранение тега
+     * @param id идентификатор тега
      */
     editTag: function (id) {
         id = isNaN(id) ? 0 : id;
@@ -143,8 +144,8 @@ spApplication.Action = {
 
     },
     /**
-     *
-     *
+     * Удаление тега
+     * @param id идентификатор тега
      */
     deleteTag: function (id) {
         id = isNaN(id) ? 0 : id;
