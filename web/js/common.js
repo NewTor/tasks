@@ -10,6 +10,10 @@ $(function() {
         spApplication.Action.editStatus(0);
     });
 
+    $('#btn__edit-tag').on('click', function() {
+        spApplication.Action.editTag(0);
+    });
+
 
 });
 

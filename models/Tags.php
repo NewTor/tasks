@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "tags".
@@ -60,7 +61,22 @@ class Tags extends \yii\db\ActiveRecord
         }
         return  $result;
     }
-
+    /**
+     * @param array $params
+     * @return ActiveDataProvider
+     */
+    public function search($params)
+    {
+        $query = Tags::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => Yii::$app->params['elements_per_page']['tags'],
+            ],
+        ]);
+        $this->load($params);
+        return $dataProvider;
+    }
 
 
 

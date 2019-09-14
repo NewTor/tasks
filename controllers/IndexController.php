@@ -45,6 +45,12 @@ class IndexController extends Controller
      */
     public function actionTags()
     {
+        $model = new Tags();
+        return $this->render('tags', [
+            'dataProvider' => $model->search (Yii::$app->request->get()),
+            'searchModel' => $model,
+            'statuses' => Status::getAsArray(),
+        ]);
         return $this->render('tags');
     }
 
