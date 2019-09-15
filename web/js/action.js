@@ -153,7 +153,6 @@ spApplication.Action = {
             }
             spApplication.Controller.loadTagsGrid();
         });
-
     },
     /**
      * Удаление тега
@@ -187,14 +186,14 @@ spApplication.Action = {
      * @param id идентификатор задачи
      */
     deleteTask: function (id) {
-    spApplication.Controller.deleteRow(id, "task", function (result) {
-        var obj = JSON.parse(result);
-        if(obj.error) {
-            alert(obj.message);
-        }
-        spApplication.Controller.loadTasksGrid();
-    });
-}
+        spApplication.Controller.deleteRow(id, "task", function (result) {
+            var obj = JSON.parse(result);
+            if(obj.error) {
+                alert(obj.message);
+            }
+            spApplication.Controller.loadTasksGrid();
+        });
+    }
 
 
 

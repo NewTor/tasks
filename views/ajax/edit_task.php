@@ -50,7 +50,6 @@ $(function () {
             }
         });
     });
-
 });
 </script>
 <div class="row row-m__bottom">
