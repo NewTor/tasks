@@ -46,18 +46,25 @@ class m190913_090620_table_tasks extends Migration
                 END$$
                 DELIMITER ;";
         $this->execute($sql);
+        // Create procedure sp_InsertTask
+        $sql = "DROP PROCEDURE IF EXISTS `sp_InsertTask`; 
+                CREATE DEFINER=`root`@`%` PROCEDURE `sp_InsertTask`(IN `status_id` INT(11), IN `name` TEXT CHARSET utf8, IN `priority` VARCHAR(1) CHARSET utf8) 
+                NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
+                INSERT INTO `tasks` (`id`, `status_id`, `name`, `priority`, `uuid`) VALUES (NULL, status_id, name, priority, uuid_v4())";
+        $this->execute($sql);
+        // Create procedure sp_UpdateTask
+        $sql = "DROP PROCEDURE IF EXISTS `sp_UpdateTask`; 
+                CREATE DEFINER=`root`@`%` PROCEDURE `sp_UpdateTask`(IN `status_id` INT(11), IN `name` TEXT CHARSET utf8, IN `priority` VARCHAR(1) CHARSET utf8, IN `task_id` INT(11)) 
+                NOT DETERMINISTIC NO SQL SQL SECURITY DEFINER 
+                UPDATE `tasks` SET `status_id` = status_id, `name` = name, `priority` = priority WHERE `id` = task_id";
+        $this->execute($sql);
         // Create statuses table
         $this->createTable($this->table_status, [
             'id' => Schema::TYPE_PK,
             'status_name' => Schema::TYPE_STRING . '(255) NOT NULL',
         ]);
         //Insert statuses
-        $this->batchInsert(
-            $this->table_status, ['status_name'], [
-            ['Новая'],
-            ['В работе'],
-            ['Завершена'],
-        ]);
+        $this->batchInsert($this->table_status, ['status_name'], [['Новая'], ['В работе'], ['Завершена']]);
         // Create tasks table
         $this->createTable($this->table_task, [
             'id' => Schema::TYPE_PK,
@@ -112,6 +119,10 @@ class m190913_090620_table_tasks extends Migration
     public function down()
     {
         $sql = "DROP FUNCTION IF EXISTS `uuid_v4`;";
+        $this->execute($sql);
+        $sql = "DROP PROCEDURE IF EXISTS `sp_InsertTask`;";
+        $this->execute($sql);
+        $sql = "DROP PROCEDURE IF EXISTS `sp_UpdateTask`;";
         $this->execute($sql);
         $this->dropTable($this->table_tag_task);
         $this->dropTable($this->table_tag);

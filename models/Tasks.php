@@ -96,12 +96,17 @@ class Tasks extends \yii\db\ActiveRecord
             'query' => $query,
             'sort' => [
                 'attributes' => ['uuid', 'name', 'status_id', 'priority'],
+                'defaultOrder' => [
+                    'status_id' => SORT_ASC,
+                    'priority' => SORT_DESC,
+                ]
             ],
             'pagination' => [
                 'pageSize' => 40,
             ],
         ]);
         $this->load($params);
+
 
         return $dataProvider;
     }

@@ -22,7 +22,12 @@ $(function() {
     $('#btn__edit-tag').on('click', function() {
         spApplication.Action.editTag(0);
     });
-
+    /**
+     * Обработка клик новая задача
+     */
+    $('#btn__edit-task').on('click', function() {
+        spApplication.Action.editTask(0);
+    });
 
 });
 

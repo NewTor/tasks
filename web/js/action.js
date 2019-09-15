@@ -12,7 +12,7 @@ spApplication.Controller = {
      * @param callback возвратная функция
      */
     modal: function (options, id, callback) {
-        $(options.element).load("ajax/" + options.server_addr + "?id=" + id)
+        $(options.element).load("ajax/" + options.server_addr + "?id=" + encodeURI(id))
             .dialog({
                 title: options.title,
                 width: options.width,
@@ -27,8 +27,7 @@ spApplication.Controller = {
                             tag_name: $("#tag_name").val(),
                             name: $("#name").val(),
                             status_id: $("#status_id").val(),
-                            priority: $("#priority").val(),
-                            tags: ""
+                            priority: $("#priority").val()
                         };
                         var json = JSON.stringify(data);
                         $.ajax({
@@ -93,6 +92,13 @@ spApplication.Controller = {
     loadTagsGrid: function () {
         jQuery.pjax.defaults.timeout = 5000;
         jQuery.pjax.reload({container: "#tags-pjax"});
+    },
+    /**
+     * Pjax загрузчик таблицы задач
+     */
+    loadTasksGrid: function () {
+        jQuery.pjax.defaults.timeout = 5000;
+        jQuery.pjax.reload({container: "#tasks-pjax"});
     }
 };
 /**
@@ -156,9 +162,34 @@ spApplication.Action = {
             }
             spApplication.Controller.loadTagsGrid();
         });
-    }
-
-
+    },
+    /**
+     * Сохранение задачи
+     * @param id идентификатор задачи
+     */
+    editTask: function (id) {
+        spApplication.Controller.modal(spApplication.options.task, id, function (result) {
+            var obj = JSON.parse(result);
+            if(obj.error) {
+                alert(obj.message);
+            }
+            spApplication.Controller.loadTasksGrid();
+        });
+    },
+    /**
+     * Удаление задачи
+     * @param id идентификатор задачи
+     */
+    deleteTask: function (id) {
+    id = isNaN(id) ? 0 : id;
+    spApplication.Controller.deleteRow(id, "task", function (result) {
+        var obj = JSON.parse(result);
+        if(obj.error) {
+            alert(obj.message);
+        }
+        spApplication.Controller.loadTasksGrid();
+    });
+}
 
 
 

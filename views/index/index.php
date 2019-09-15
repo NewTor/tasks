@@ -17,7 +17,7 @@ $this->title = 'Задачи';
                 <h2><?= $this->title;?></h2>
             </div>
             <div class="col-md-2 block__top-padding">
-                <button type="button" class="btn btn-primary btn-xs" onclick="modal();">Новая задача</button>
+                <button type="button" id="btn__edit-task" class="btn btn-primary btn-xs">Новая задача</button>
             </div>
         </div>
 
@@ -40,6 +40,12 @@ $this->title = 'Задачи';
             </div>
         </div>
         <?php
+        Pjax::begin([
+            'id'              => 'tasks-pjax',
+            'timeout'         => 5000,
+            'enablePushState' => true,
+            'clientOptions'   => ['method' => 'POST'],
+        ]);
         echo GridView::widget([
             'dataProvider' => $dataProvider,
             //'filterModel' => $searchModel,
@@ -106,16 +112,17 @@ $this->title = 'Задачи';
                     ],
                     'buttons' => [
                         'update' => function ($url, $model, $key) use ($user) {
-                            return Html::a('', "javascript:deleteProduct($model->id)", ['class' => 'glyphicon glyphicon-pencil btn btn-primary btn-xs']);
+                            return Html::a('', "javascript:spApplication.Action.editTask('$model->uuid')", ['class' => 'glyphicon glyphicon-pencil btn btn-primary btn-xs']);
                         },
                         'delete' => function ($url, $model, $key) {
-                            return Html::a('', "javascript:deleteProduct($model->id)", ['class' => 'glyphicon glyphicon-remove btn btn-danger btn-xs']);
+                            return Html::a('', "javascript:spApplication.Action.deleteTask('$model->uuid')", ['class' => 'glyphicon glyphicon-remove btn btn-danger btn-xs']);
                         },
                     ]
                 ],
 
             ],
         ]);
+        Pjax::end();
         ?>
     </div>
 </div>

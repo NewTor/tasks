@@ -6,7 +6,7 @@ spApplication.options = {};
  */
 spApplication.options.task = {
     element: "#modal-task",
-    height: 350,
+    height: 450,
     width: 590,
     title: "Редактирование задачи",
     server_addr: "edit-task"

@@ -13,7 +13,6 @@ class AjaxController extends Controller
 {
     /**
      * Модальное окно редактирования статуса
-     *
      * @return string
      */
     public function actionEditStatus()
@@ -31,7 +30,6 @@ class AjaxController extends Controller
     }
     /**
      * Экшн сохранения данных статуса
-     *
      * @return string
      */
     public function actionEditStatusSave()
@@ -65,7 +63,6 @@ class AjaxController extends Controller
     }
     /**
      * Экшн удаления статуса
-     *
      * @return string
      */
     public function actionDeleteStatus()
@@ -112,7 +109,6 @@ class AjaxController extends Controller
     }
     /**
      * Экшн сохранения данных тега
-     *
      * @return string
      */
     public function actionEditTagSave()
@@ -146,7 +142,6 @@ class AjaxController extends Controller
     }
     /**
      * Экшн удаления тега
-     *
      * @return string
      */
     public function actionDeleteTag()
@@ -166,15 +161,73 @@ class AjaxController extends Controller
             ]);
         }
     }
-
-
-
-
-
-
-
-
-
+    /**
+     * Модальное окно редактирования задачи
+     * @return string
+     */
+    public function actionEditTask()
+    {
+        $get = Yii::$app->request->get();
+        //var_dump($get['id']);
+        $task = null;
+        if($get && isset($get['id'])) {
+            $task = Tasks::findOne(['uuid' => $get['id']]);
+        }
+        return $this->renderAjax('edit_task', [
+            'task' => $task,
+            'statuses' => Status::find()->all(),
+        ]);
+    }
+    /**
+     * Экшн сохранения данных задачи
+     * @return string
+     */
+    public function actionEditTaskSave()
+    {
+        $post = Yii::$app->request->post();
+        if($post && isset($post['id']) && isset($post['json'])) {
+            $json_obj = json_decode($post['json']);
+            $connection = \Yii::$app->db;
+            if($post['id'] == 0) {
+                $sql = "CALL sp_InsertTask(". $json_obj->status_id .", '" . $json_obj->name . "', '" . $json_obj->priority . "')";
+            } else {
+                $task = Tasks::findOne(['uuid' => $post['id']]);
+                $sql = "CALL sp_UpdateTask(". $json_obj->status_id .", '" . $json_obj->name . "', '" . $json_obj->priority . "', " . $task->id . ")";
+            }
+            $connection->createCommand($sql)->execute();
+            return json_encode([
+                'error' => false,
+                'message' => $post['id'],
+            ]);
+        } else {
+            return json_encode([
+                'error' => true,
+                'message' => 'Ошибка при отправке данных',
+            ]);
+        }
+    }
+    /**
+     * Экшн удаления задачи
+     * @return string
+     */
+    public function actionDeleteTask()
+    {
+        $post = Yii::$app->request->post();
+        if($post && isset($post['id']) && $post['id'] != 0) {
+            $task = Tasks::findOne(['uuid' => $post['id']]);
+            TagsTasks::deleteAll(['task_id' => $task->id]);
+            Tasks::deleteAll(['id' => $task->id]);
+            return json_encode([
+                'error' => false,
+                'message' => $post['id'],
+            ]);
+        } else {
+            return json_encode([
+                'error' => true,
+                'message' => 'Ошибка при отправке данных',
+            ]);
+        }
+    }
 
 
 
