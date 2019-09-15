@@ -28,6 +28,19 @@ $this->title = 'Задачи';
             </div>
             <div id="filter-block" class="panel-body" style="display: none;padding: 5px;">
 
+                <div class="row">
+                    <div class="col-md-6">
+
+                    </div>
+                    <div class="col-md-6">
+                        <?= Html::label('Приоритет', 'priority');?>
+                        <select id="priority" multiple class="form-control" style="width: 100%">
+                            <option value="0">Низкий</option>
+                            <option value="1">Средний</option>
+                            <option value="2">Высокий</option>
+                        </select>
+                    </div>
+                </div>
 
 
 

@@ -30,8 +30,7 @@ $(function() {
     });
 
 
-
-
+    $("#priority").select2();
 
 
 
