@@ -99,6 +99,13 @@ spApplication.Controller = {
     loadTasksGrid: function () {
         jQuery.pjax.defaults.timeout = 5000;
         jQuery.pjax.reload({container: "#tasks-pjax"});
+    },
+    /**
+     * Pjax загрузчик тегов задачи
+     */
+    loadTaskTagsGrid: function () {
+        jQuery.pjax.defaults.timeout = 5000;
+        jQuery.pjax.reload({container: "#task-tags-pjax"});
     }
 };
 /**
@@ -118,7 +125,6 @@ spApplication.Action = {
             }
             spApplication.Controller.loadStatusGrid();
         });
-
     },
     /**
      * Удаление статуса
@@ -181,7 +187,6 @@ spApplication.Action = {
      * @param id идентификатор задачи
      */
     deleteTask: function (id) {
-    id = isNaN(id) ? 0 : id;
     spApplication.Controller.deleteRow(id, "task", function (result) {
         var obj = JSON.parse(result);
         if(obj.error) {

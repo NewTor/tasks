@@ -117,3 +117,11 @@ a.desc:after {
 .block__top-padding {
     padding-top: 25px;
 }
+
+.row-m__bottom {
+    margin-bottom: 10px;
+}
+
+.row-m__top {
+    margin-top: 10px;
+}

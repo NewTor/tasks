@@ -84,7 +84,21 @@ class Tags extends \yii\db\ActiveRecord
         $this->load($params);
         return $dataProvider;
     }
-
+    /**
+     *
+     */
+    public static function searchAutocomplete()
+    {
+        $get = Yii::$app->request->get();
+        $tags = Tags::find()->where(['like', 'tag_name', $get['term']])->all();
+        $result = '[';
+        foreach($tags as $tag) {
+            $result .= '{"label":"'.$tag->tag_name.'", "value":"'.$tag->id.'"},';
+        }
+        $result = substr($result, 0, -1);
+        $result .= ']';
+        return $result;
+    }
 
 
 
