@@ -74,13 +74,8 @@ class Tasks extends \yii\db\ActiveRecord
         return $this->hasOne(Status::className(), ['id' => 'status_id']);
     }
     /**
-     * @return \yii\db\ActiveQuery
+     * @return mixed
      */
-    /*public function getTags()
-    {
-        return $this->hasMany(Tags::className(), ['id' => 'tag_id'])->viaTable('tags_tasks', ['task_id' => 'id']);
-    }*/
-
     public function getPriv()
     {
         return $this->prioritet[$this->priority];
