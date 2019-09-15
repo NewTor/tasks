@@ -20,10 +20,12 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
+        'js/chosen/chosen.css',
         'css/dialog.css',
         'css/site.css',
     ];
     public $js = [
+        'js/chosen/chosen.jquery.js',
         'js/jquery-ui.js',
         'js/options.js',
         'js/action.js',
