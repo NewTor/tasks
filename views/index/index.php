@@ -3,6 +3,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Html;
 
+/* @var $get $_GET */
 /* @var $statuses \app\models\Status::getAsArray() */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $searchModel \app\models\Tasks */
@@ -27,17 +28,17 @@ $this->title = 'Задачи';
                 <div id="filter-btn" style="cursor: pointer;"><strong>Фильтр</strong> <span class="caret"></span></div>
             </div>
             <div id="filter-block" class="panel-body" style="display: none;padding: 5px;">
-
+                <?php echo Html::beginForm(['/index'], 'get', ['id' => 'filterform']); ?>
                 <div class="row">
                     <div class="col-md-6">
 
                     </div>
                     <div class="col-md-6">
                         <?= Html::label('Приоритет', 'priority');?>
-                        <select id="priority" multiple class="form-control" style="width: 100%">
-                            <option value="0">Низкий</option>
-                            <option value="1">Средний</option>
-                            <option value="2">Высокий</option>
+                        <select id="priority" name="Task[priority][]" multiple class="form-control" style="width: 100%">
+                            <option <?= $get['Task']['priority'] == 0 ? 'selected' : '';?> value="0">Низкий</option>
+                            <option <?= $get['Task']['priority'] == 1 ? 'selected' : '';?> value="1">Средний</option>
+                            <option <?= $get['Task']['priority'] == 2 ? 'selected' : '';?> value="2">Высокий</option>
                         </select>
                     </div>
                 </div>
@@ -50,6 +51,7 @@ $this->title = 'Задачи';
                 <div style="clear: both;"></div>
                 <button type="submit" class="btn btn-primary btn-xs">Применить</button>
                 <button type="reset" onclick="location.href='/index'" class="btn btn-primary btn-xs">Сброс</button>
+                <?= Html::endForm();?>
             </div>
         </div>
         <?php

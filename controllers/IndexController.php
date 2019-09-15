@@ -22,6 +22,7 @@ class IndexController extends Controller
             'dataProvider' => $model->search (Yii::$app->request->get()),
             'searchModel' => $model,
             'statuses' => Status::getAsArray(),
+            'get' => Yii::$app->request->get(),
         ]);
     }
     /**
