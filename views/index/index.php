@@ -5,6 +5,7 @@ use yii\helpers\Html;
 
 /* @var $get $_GET */
 /* @var $statuses \app\models\Status::getAsArray() */
+/* @var $tags \app\models\Tags::getAsArray() */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $searchModel \app\models\Tasks */
 /* @var $this yii\web\View */
@@ -29,22 +30,48 @@ $this->title = 'Задачи';
             </div>
             <div id="filter-block" class="panel-body" style="display: none;padding: 5px;">
                 <?php echo Html::beginForm(['/index'], 'get', ['id' => 'filterform']); ?>
-                <div class="row">
-                    <div class="col-md-6">
 
-                    </div>
-                    <div class="col-md-6">
-                        <?= Html::label('Приоритет', 'priority');?>
-                        <select id="priority" name="Task[priority][]" multiple class="form-control" style="width: 100%">
-                            <option <?= $get['Task']['priority'] == 0 ? 'selected' : '';?> value="0">Низкий</option>
-                            <option <?= $get['Task']['priority'] == 1 ? 'selected' : '';?> value="1">Средний</option>
-                            <option <?= $get['Task']['priority'] == 2 ? 'selected' : '';?> value="2">Высокий</option>
+                <div class="row row-m__bottom">
+                    <div class="col-md-4">
+                        <?= Html::label('Статус', 'status');?>
+                        <select id="status" name="status[]" multiple class="form-control chosen-select" style="width: 100%">
+                            <?php foreach($statuses as $status_id => $status_name):?>
+                                <option <?= in_array($status_id, ($get && $get['status'] ? $get['status'] : [])) ? 'selected' : '';?> value="<?= $status_id;?>"><?= $status_name;?></option>
+                            <?php endforeach;?>
                         </select>
+                    </div>
+                    <div class="col-md-4">
+                        <?= Html::label('Приоритет', 'priority');?>
+                        <select id="priority" name="priority[]" multiple class="form-control chosen-select" style="width: 100%">
+                            <option <?= in_array(0, ($get && $get['priority'] ? $get['priority'] : [])) ? 'selected' : '';?> value="0">Низкий</option>
+                            <option <?= in_array(1, ($get && $get['priority'] ? $get['priority'] : [])) ? 'selected' : '';?> value="1">Средний</option>
+                            <option <?= in_array(2, ($get && $get['priority'] ? $get['priority'] : [])) ? 'selected' : '';?> value="2">Высокий</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <?= Html::label('Идентификатор', 'uuid');?>
+                        <?= Html::textInput('uuid', ($get && $get['uuid'] ? $get['uuid'] : ''), ['class' => 'form-control', 'id' => 'uuid']);?>
+                    </div>
+                </div>
+
+                <div class="row row-m__bottom">
+                    <div class="col-md-12">
+                        <?= Html::label('Задача', 'name');?>
+                        <?= Html::textInput('name', ($get && $get['name'] ? $get['name'] : ''), ['class' => 'form-control', 'id' => 'name']);?>
                     </div>
                 </div>
 
 
-
+                <div class="row row-m__bottom">
+                    <div class="col-md-12">
+                        <?= Html::label('Хэштеги', 'tags');?>
+                        <select id="tags" name="tags[]" multiple class="form-control chosen-select" style="width: 100%">
+                            <?php foreach($tags as $tag_id => $tag_name):?>
+                                <option <?= in_array($tag_id, ($get && $get['tags'] ? $get['tags'] : [])) ? 'selected' : '';?> value="<?= $tag_id;?>"><?= $tag_name;?></option>
+                            <?php endforeach;?>
+                        </select>
+                    </div>
+                </div>
 
 
 

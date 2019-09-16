@@ -28,13 +28,10 @@ $(function() {
     $("#btn__edit-task").on("click", function() {
         spApplication.Action.editTask(0);
     });
-
-
-    $("#priority").select2();
-
-
-
-
+    /**
+     * Инициализация плагина select2
+     */
+    $(".chosen-select").select2();
 
 });
 

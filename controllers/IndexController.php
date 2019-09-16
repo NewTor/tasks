@@ -18,11 +18,13 @@ class IndexController extends Controller
     public function actionIndex()
     {
         $model = new Tasks();
+        $get = Yii::$app->request->get();
         return $this->render('index', [
-            'dataProvider' => $model->search (Yii::$app->request->get()),
+            'dataProvider' => $model->search ($get),
             'searchModel' => $model,
             'statuses' => Status::getAsArray(),
-            'get' => Yii::$app->request->get(),
+            'get' => $get,
+            'tags' => Tags::getAsArray(),
         ]);
     }
     /**

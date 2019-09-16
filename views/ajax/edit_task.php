@@ -54,8 +54,8 @@ $(function () {
 </script>
 <div class="row row-m__bottom">
     <div class="col-md-12">
-        <?= Html::label('Задача', 'name');?>
-        <?= Html::textarea('name', $task ? $task->name : '', ['class' => 'form-control', 'id' => 'name']);?>
+        <?= Html::label('Задача', 'task_name');?>
+        <?= Html::textarea('task_name', $task ? $task->name : '', ['class' => 'form-control', 'id' => 'task_name']);?>
     </div>
 </div>
 <div class="row row-m__bottom">
@@ -68,8 +68,8 @@ $(function () {
         </select>
     </div>
     <div class="col-md-6">
-        <?= Html::label('Приоритет', 'priority');?>
-        <select id="priority" class="form-control">
+        <?= Html::label('Приоритет', 'prioritet');?>
+        <select id="prioritet" class="form-control">
             <option <?= ($task && $task->priority == '0') ? 'selected': ''?> value="0">Низкий</option>
             <option <?= ($task && $task->priority == '1') ? 'selected': ''?> value="1">Средний</option>
             <option <?= ($task && $task->priority == '2') ? 'selected': ''?> value="2">Высокий</option>
@@ -79,13 +79,11 @@ $(function () {
 <?php if($task):?>
     <div class="row row-m__bottom">
         <div class="col-md-12" style="padding: 5px;">
-            <?php Pjax::begin(['id' => 'task-tags-pjax', 'timeout' => 5000, 'enablePushState' => true, 'clientOptions' => ['method' => 'POST']]);?>
             <div id="tags-wrapper">
                 <?php foreach($task->tags as $tag):?>
                     <span id="t<?= $tag->tag_id;?>" data-value="<?= $tag->tag_id;?>" class="label label-default tags">#<?= $tag->tag->tag_name;?> <span class="glyphicon glyphicon-remove"></span></span>
                 <?php endforeach;?>
             </div>
-            <?php Pjax::end();?>
         </div>
     </div>
     <div class="row">

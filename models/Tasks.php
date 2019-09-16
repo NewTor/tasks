@@ -4,6 +4,7 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "tasks".
@@ -20,20 +21,24 @@ use Yii;
  */
 class Tasks extends \yii\db\ActiveRecord
 {
+    /**
+     * @var array priority
+     */
     public $prioritet = [
         '0' => 'Низкий',
         '1' => 'Средний',
         '2' => 'Высокий',
     ];
     /**
-     * {@inheritdoc}
+     * Table name
      */
     public static function tableName()
     {
         return 'tasks';
     }
     /**
-     * {@inheritdoc}
+     * Validate rules
+     * @return array
      */
     public function rules()
     {
@@ -46,7 +51,8 @@ class Tasks extends \yii\db\ActiveRecord
         ];
     }
     /**
-     * {@inheritdoc}
+     * Fields attributes
+     * @return array
      */
     public function attributeLabels()
     {
@@ -60,6 +66,7 @@ class Tasks extends \yii\db\ActiveRecord
         ];
     }
     /**
+     * TagsTasks relation
      * @return \yii\db\ActiveQuery
      */
     public function getTags()
@@ -67,6 +74,7 @@ class Tasks extends \yii\db\ActiveRecord
         return $this->hasMany(TagsTasks::className(), ['task_id' => 'id']);
     }
     /**
+     * Status relation
      * @return \yii\db\ActiveQuery
      */
     public function getStatus()
@@ -81,6 +89,7 @@ class Tasks extends \yii\db\ActiveRecord
         return $this->prioritet[$this->priority];
     }
     /**
+     * DataProvider для GridView
      * @param array $params
      * @return ActiveDataProvider
      */
@@ -97,12 +106,32 @@ class Tasks extends \yii\db\ActiveRecord
                 ]
             ],
             'pagination' => [
-                'pageSize' => 40,
+                'pageSize' => Yii::$app->params['elements_per_page']['tasks'],
             ],
         ]);
         $this->load($params);
-
-
+        // Фильтрация по тексту задачи
+        if(isset($params['name']) && $params['name'] != '') {
+            $query->andFilterWhere(['like', 'tasks.name', trim($params['name'])]);
+        }
+        // Фильтрация по идентификатору
+        if(isset($params['uuid']) && $params['uuid'] != '') {
+            $query->andFilterWhere(['like', 'tasks.uuid', trim($params['uuid'])]);
+        }
+        // Фильтрация по статусам
+        if(isset($params['status']) && (!empty($params['status']) || $params['status'] != 0)) {
+            $query->andFilterWhere(['tasks.status_id' => $params['status']]);
+        }
+        // Фильтрация по приоритету
+        if(isset($params['priority']) && (!empty($params['priority']) || $params['priority'] != 0)) {
+            $query->andFilterWhere(['tasks.priority' => $params['priority']]);
+        }
+        // Фильтрация по хэштегам
+        if(isset($params['tags']) && (!empty($params['tags']) || $params['tags'] != 0)) {
+            $query->andFilterWhere(['tags_tasks.tag_id' => $params['tags']]);
+        }
         return $dataProvider;
     }
+
+
 }

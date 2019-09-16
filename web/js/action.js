@@ -25,11 +25,12 @@ spApplication.Controller = {
                         var data = {
                             status_name: $("#status_name").val(),
                             tag_name: $("#tag_name").val(),
-                            name: $("#name").val(),
+                            name: $("#task_name").val(),
                             status_id: $("#status_id").val(),
-                            priority: $("#priority").val()
+                            priority: $("#prioritet").val()
                         };
                         var json = JSON.stringify(data);
+                        console.log(data);
                         $.ajax({
                             async: false,
                             url: "/ajax/" + options.server_addr + "-save",
@@ -73,11 +74,7 @@ spApplication.Controller = {
      * Переключение панели фильтра
      */
     toggleFilter: function () {
-        $("#filter-block").slideToggle({
-            "complete": function() {
-                $("#status_id").trigger("chosen:updated");
-            }
-        });
+        $("#filter-block").slideToggle();
     },
     /**
      * Pjax загрузчик таблицы статусов
