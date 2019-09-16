@@ -91,7 +91,6 @@ class AjaxController extends Controller
     }
     /**
      * Модальное окно редактирования тега
-     *
      * @return string
      */
     public function actionEditTag()

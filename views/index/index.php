@@ -22,15 +22,12 @@ $this->title = 'Задачи';
                 <button type="button" id="btn__edit-task" class="btn btn-primary btn-xs">Новая задача</button>
             </div>
         </div>
-
-
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div id="filter-btn" style="cursor: pointer;"><strong>Фильтр</strong> <span class="caret"></span></div>
             </div>
             <div id="filter-block" class="panel-body" style="display: none;padding: 5px;">
                 <?php echo Html::beginForm(['/index'], 'get', ['id' => 'filterform']); ?>
-
                 <div class="row row-m__bottom">
                     <div class="col-md-4">
                         <?= Html::label('Статус', 'status');?>
@@ -53,15 +50,12 @@ $this->title = 'Задачи';
                         <?= Html::textInput('uuid', ($get && $get['uuid'] ? $get['uuid'] : ''), ['class' => 'form-control', 'id' => 'uuid']);?>
                     </div>
                 </div>
-
                 <div class="row row-m__bottom">
                     <div class="col-md-12">
                         <?= Html::label('Задача', 'name');?>
                         <?= Html::textInput('name', ($get && $get['name'] ? $get['name'] : ''), ['class' => 'form-control', 'id' => 'name']);?>
                     </div>
                 </div>
-
-
                 <div class="row row-m__bottom">
                     <div class="col-md-12">
                         <?= Html::label('Хэштеги', 'tags');?>
@@ -72,9 +66,6 @@ $this->title = 'Задачи';
                         </select>
                     </div>
                 </div>
-
-
-
                 <div style="clear: both;"></div>
                 <button type="submit" class="btn btn-primary btn-xs">Применить</button>
                 <button type="reset" onclick="location.href='/index'" class="btn btn-primary btn-xs">Сброс</button>
@@ -90,7 +81,6 @@ $this->title = 'Задачи';
         ]);
         echo GridView::widget([
             'dataProvider' => $dataProvider,
-            //'filterModel' => $searchModel,
             'tableOptions' => [
                 'class' => 'table table-striped table-bordered'
             ],

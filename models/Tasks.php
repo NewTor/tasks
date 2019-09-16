@@ -4,7 +4,6 @@ namespace app\models;
 
 use yii\data\ActiveDataProvider;
 use Yii;
-use yii\db\ActiveQuery;
 
 /**
  * This is the model class for table "tasks".
